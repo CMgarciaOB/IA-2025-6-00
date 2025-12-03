@@ -148,7 +148,7 @@ class OCRtoVoiceApp:
             
             # Generar el audio normalizado
             audio_path = os.path.join('audio', str(uuid.uuid4()) + ".mp3")
-            self.audio_path = tts_pipeline.synthesize(final_text, audio_path, voice="es-ES-JorgeNeural")
+            self.audio_path = tts_pipeline.synthesize(final_text, audio_path, voice="es-MX-JorgeNeural")
             
             # Limpiar el archivo temporal
             if os.path.exists(temp_path):
@@ -162,7 +162,8 @@ class OCRtoVoiceApp:
                 raise Exception("No se pudo procesar")
                 
         except Exception as e:
-            self.root.after(0, lambda: messagebox.showerror("Error", str(e)))
+            error_msg = str(e)
+            self.root.after(0, lambda: messagebox.showerror("Error", error_msg))
         finally:
             self.progress.stop()
             self.root.after(0, lambda: self.process_btn.config(state=tk.NORMAL))

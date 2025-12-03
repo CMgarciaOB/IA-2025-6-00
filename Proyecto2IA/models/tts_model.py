@@ -7,10 +7,10 @@ os.makedirs(BASE_AUDIO_DIR, exist_ok=True)
 
 
 VALID_VOICES = {
-    "es-ES-AlvaroNeural",
-    "es-ES-ElviraNeural",
     "es-MX-DaliaNeural",
     "es-MX-JorgeNeural",
+    "es-AR-ElenaNeural",
+    "es-AR-TomasNeural",
 }
 
 class TTSPipeline:
@@ -41,8 +41,11 @@ class TTSPipeline:
         return full_path
 
     async def _async_synthesize(self, text: str, output_path: str, voice: str):
-        communicate = edge_tts.Communicate(text, voice)
-        await communicate.save(output_path)
+        try:
+            communicate = edge_tts.Communicate(text, voice)
+            await communicate.save(output_path)
+        except Exception as e:
+            raise RuntimeError(f"Error al generar audio con {voice}: {str(e)}")
 
 # se usara el pipline desde el main mediante este valor
 tts_pipeline = TTSPipeline()
