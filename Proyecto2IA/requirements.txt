@@ -1,0 +1,8 @@
+opencv-python
+pillow
+transformers
+numpy
+easyocr
+language-tool-python
+edge-tts
+
